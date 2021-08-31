@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div autocomplete="off"  class="form" id="form">
+      <div class="chat-section">
+        <div class="header">Whats App</div>
+        <div class="online">
+          <img src="//unsplash.it/70" height="80%" alt="" />
+          <div class="online-name">General Chat </div>
+        </div>
+      </div>
+      <div class="container" id="container">
+        <img
+          src="https://thumbs.dreamstime.com/b/social-media-doodle-seamless-pattern-social-media-doodle-seamless-pattern-repeated-ornament-hand-drawn-elements-white-162559147.jpg"
+          alt=""
+          class="doodle"
+        />
+        <div class="header">General Chat </div>
+        <div class="messages" id="messages"></div>
+        <div class="footer">
+          <div class="gifMenu">
+            <input
+              type="text"
+              id="inp"
+              placeholder="gif name you want to search"
+            />
+            <button id="btn" onclick="getGif()">Get Gif</button>
+            <div class="gifBox" id="gifBox"></div>
+          </div>
+          <img
+            src="images/cancel.png"
+            id="cancel-gif-menu"
+            onclick="cancelGifMenu()"
+            alt=""
+            srcset=""
+          />
+          <img src="images/gifIcon.png" onclick="gifMenu()" alt="" srcset="" />
+          <input
+            autocomplete="off"
+            placeholder="Type a message"
+            type="text"
+            id="input"
+            class="input"
+          />
+          <img
+            src="images/Send_PaperPlane_Arrow.png"
+            onclick="putMessage(null ,'right')"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
