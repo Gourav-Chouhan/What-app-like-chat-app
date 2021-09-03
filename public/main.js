@@ -1,11 +1,13 @@
 let username = prompt("Enter your username");
-// let username = "gourav chouhan";
+username = username || "unknown";
+// username = "gourav chouhan";
 
-alert(document.body.clientWidth);
 
-while (!username) {
-  username = prompt("You need to enter a username for moving ahead");
-}
+
+
+// while (!username) {
+//   username = prompt("You need to enter a username for moving ahead");
+// }
 
 const socket = io();
 
@@ -24,14 +26,12 @@ socket.on("test", (data) => {
 const form = document.getElementById("form");
 
 const putMessage = (data, side) => {
-  console.log(data);
   let parent = document.getElementById("messages");
   let msg = document.createElement("div");
   let sentBy = document.createElement("div");
   sentBy.classList.add("sentBy");
   if (!data) {
     sentBy.textContent = "You";
-    console.log("hh");
   } else {
     sentBy.textContent = data.username;
   }
@@ -162,6 +162,13 @@ async function getGif() {
     img.src = url;
     parent.appendChild(img);
   }
+}
+
+function donoKoBhejo() {
+  console.log(_input.value)
+  sendMessage(username, _input.value);
+  putMessage(null ,'right')
+
 }
 
 // setInterval(() => {

@@ -20,7 +20,7 @@ body {
 body {
   font-family: "Segoe UI", Helvetica, Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
-  /* overflow: hidden; */
+  overflow: hidden;
   justify-content: center;
   align-items: center;
   background: linear-gradient(
@@ -93,7 +93,7 @@ body {
   width: 100%;
   position: absolute;
   background-color: #f0f0f0;
-  bottom: 0;
+  bottom: 0%;
   box-shadow: #c6c7c1 0px 0px 20px;
   display: flex;
   justify-content: center;
@@ -139,6 +139,11 @@ body {
   /* display: flex; */
   position: relative;
   box-shadow: #c6c7c1 0px 0px 10px;
+}
+
+button {
+  font-size: 9px;
+  background: white;
 }
 
 .container * .input {
@@ -337,8 +342,17 @@ body {
   .chat-section {
     display: none;
   }
+  
+  .form {
+    width: 100%;
+    height: 100%;
+  }
 
   .container {
     width: 100%;
+  }
+  
+   .message img {
+    max-width: 170px;
   }
 }

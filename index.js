@@ -15,16 +15,13 @@ let users = {}
 
 io.on('connection', socket => {
 
-    // console.log(socket.id)
 
     socket.on('userLogins', (username) => {
         users[socket.id] = username
     
-        // console.log(users)
     })
 
     socket.on('test', (data) => {
-        console.log(data)
         socket.broadcast.emit('test', data)
      
     })
