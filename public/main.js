@@ -1,9 +1,8 @@
-let username = prompt("Enter your username");
-username = username || "unknown";
-// username = "gourav chouhan";
+//private message branch
 
-
-
+// let username = prompt("Enter your username");
+// username = username || "unknown";
+username = "gourav chouhan";
 
 // while (!username) {
 //   username = prompt("You need to enter a username for moving ahead");
@@ -153,10 +152,6 @@ async function getGif() {
         "right"
       );
       sendMessage(username, `<img src="${img.dataset.gifUrl}" \>`);
-
-      setTimeout(() => {
-        msgParent.scrollBy(0, 1000);
-      }, 190);
     });
     // img.classList.add('message', )
     img.src = url;
@@ -165,10 +160,9 @@ async function getGif() {
 }
 
 function donoKoBhejo() {
-  console.log(_input.value)
+  console.log(_input.value);
   sendMessage(username, _input.value);
-  putMessage(null ,'right')
-
+  putMessage(null, "right");
 }
 
 // setInterval(() => {
