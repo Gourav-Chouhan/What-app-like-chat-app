@@ -1,8 +1,8 @@
 //private message branch
 
-// let username = prompt("Enter your username");
-// username = username || "unknown";
-username = "gourav chouhan";
+let username = prompt("Enter your username");
+username = username || "unknown";
+// username = "gourav chouhan";
 
 // while (!username) {
 //   username = prompt("You need to enter a username for moving ahead");
@@ -76,13 +76,16 @@ _input.addEventListener("keydown", (e) => {
   }
 });
 
-const chatSection = document.querySelector(".chat-section");
+let chatSection = document.querySelector(".chat-section");
 
 const createOnlinePerson = (username, dpSource) => {
   let person = document.createElement("div");
   // while (chatSection.firstChild) {
   //   chatSection.removeChild(chatSection.firstChild);
   // }
+  person.addEventListener("click", (e) => {
+    console.log(username);
+  });
   person.classList.add("online");
   let img = document.createElement("img");
   img.src = dpSource || "//unsplash.it/100";
@@ -97,16 +100,15 @@ const createOnlinePerson = (username, dpSource) => {
 };
 
 let users = {};
+let count = 0;
 
 function getOnlineInfo() {
   socket.emit("giveOnlineStatus", "bhej jhaldi");
-  socket.on("takeOnlineStatus", (data) => {
-    users = data;
-    for (let user in data) {
-      createOnlinePerson(data[user], null);
-    }
-  });
 }
+
+socket.on("takeOnlineStatus", (data) => {
+  updateOnlinePeoples(data);
+});
 
 const gifMenu = () => {
   let msgParent = document.getElementById("messages");
@@ -165,6 +167,14 @@ function donoKoBhejo() {
   putMessage(null, "right");
 }
 
+const updateOnlinePeoples = (onlineUsers) => {
+  while (chatSection.childElementCount > 2) {
+    chatSection.removeChild(chatSection.children[2]);
+  }
+  for (let user in onlineUsers) {
+    createOnlinePerson(user, null);
+  }
+};
 // setInterval(() => {
 //   getOnlineInfo();
 
