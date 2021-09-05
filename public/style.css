@@ -109,6 +109,7 @@ body {
   /* max-height: 30%; */
   max-height: 86.5%;
   min-height: 200px;
+  margin-top: 7%;
   padding: 10px;
   overflow-y: auto;
   overflow-x: hidden;
@@ -214,6 +215,25 @@ button {
   position: relative;
 }
 
+.newMessage {
+  /* width: 20%;
+  height: 5%; */
+  position: abosolute;
+  margin: auto 10% auto auto;
+  padding: 0.5ch 1ch;
+  border-radius: 50%;
+  font-weight: bolder;
+  outline: none;
+  /* display: none; */
+  border: none;
+  color: white;
+  background-color: red;
+}
+
+/* #newMessage {
+  display: none;
+} */
+
 .online img {
   border-radius: 50%;
   margin: 3%;
@@ -253,6 +273,11 @@ button {
   padding: 0;
   left: 0%;
   transform-origin: bottom;
+}
+
+#headerGeneral {
+  position: absolute;
+  top: 0;
 }
 
 @keyframes raise {

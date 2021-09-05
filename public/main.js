@@ -22,15 +22,16 @@ socket.on("sandesh", (msg) => {
 });
 
 socket.on("test", (data) => {
-  putMessage(data, "left");
+  putMessage(data, "left", data.channel);
 });
 
 const form = document.getElementById("form");
 let container = document.getElementById("container");
 
-const putMessage = (data, side) => {
-  let parent = document.getElementById(currentChannel);
-  console.log(parent);
+document.getElementById("newMessage").style.display = "none";
+
+const putMessage = (data, side, sendTo) => {
+  let parent = document.getElementById(sendTo || currentChannel);
   let msg = document.createElement("div");
   let sentBy = document.createElement("div");
   sentBy.classList.add("sentBy");
@@ -44,6 +45,14 @@ const putMessage = (data, side) => {
   msg.classList.add(side);
 
   msg.innerHTML = data ? data.data : _input.value;
+
+  if (sendTo && sendTo !== currentChannel) {
+    let newMessageCounter = document.getElementById(
+      `chat${sendTo}`
+    ).lastElementChild;
+    newMessageCounter.innerText = parseInt(newMessageCounter.innerText) + 1;
+    newMessageCounter.style = "block";
+  }
 
   if (!msg.innerHTML) return;
 
@@ -70,7 +79,7 @@ const putMessage = (data, side) => {
 };
 
 const sendMessage = (username, data) => {
-  socket.emit("test", { username, data });
+  socket.emit("test", { username, data, currentChannel });
 };
 
 let _input = document.getElementById("input");
@@ -85,7 +94,10 @@ _input.addEventListener("keydown", (e) => {
 
 let chatSection = document.querySelector(".chat-section");
 
-document.getElementById("generalChat").addEventListener("click", (e) => {
+document.getElementById("chatgeneral").addEventListener("click", (e) => {
+  let messageBox = document.getElementById(`chatgeneral`).lastElementChild;
+  messageBox.innerText = 0;
+  messageBox.style.display = "none";
   if (currentChannel == "general") {
     return;
   }
@@ -96,9 +108,9 @@ document.getElementById("generalChat").addEventListener("click", (e) => {
     .classList.remove("selectedChannel");
   document.getElementById(currentChannel).style.display = "none";
   currentChannel = "general";
-  // hatao();
-  console.log("general");
 });
+
+let nextTo = document.querySelectorAll(".header")[1];
 
 const createOnlinePerson = (username, dpSource) => {
   let person = document.createElement("div");
@@ -109,9 +121,15 @@ const createOnlinePerson = (username, dpSource) => {
   channel.classList.add("messages");
   channel.id = username;
   container.prepend(channel);
+  // nextTo.insertAdjacentHTML("afterend", channel);
   channel.style.display = "none";
 
   person.addEventListener("click", (e) => {
+    let messageBox = document.getElementById(
+      `chat${username}`
+    ).lastElementChild;
+    messageBox.innerText = 0;
+    messageBox.style.display = "none";
     if (currentChannel == username) {
       return;
     }
@@ -120,13 +138,9 @@ const createOnlinePerson = (username, dpSource) => {
       .classList.remove("selectedChannel");
     document.getElementById(`chat${username}`).classList.add("selectedChannel");
 
-    // console.log(document.getElementById(username));
     document.getElementById(username).style.display = "block";
     document.getElementById(currentChannel).style.display = "none";
     currentChannel = username;
-
-    // hatao();
-    console.log(username);
   });
   person.classList.add("online");
   person.id = `chat${username}`;
@@ -135,10 +149,17 @@ const createOnlinePerson = (username, dpSource) => {
   2;
   img.style.height = "80%";
   let nameBox = document.createElement("div");
+  let msgCounter = document.createElement("div");
+  msgCounter.classList.add("newMessage");
+  msgCounter.id = "newMessage-" + username;
+  msgCounter.innerText = 0;
+  msgCounter.style.display = "none";
+
   // nameBox.classList.add('online-name')
   nameBox.innerHTML = username;
   person.appendChild(img);
   person.appendChild(nameBox);
+  person.appendChild(msgCounter);
   chatSection.appendChild(person);
 };
 
@@ -217,7 +238,6 @@ async function getGif() {
 }
 
 function donoKoBhejo() {
-  console.log(_input.value);
   sendMessage(username, _input.value);
   putMessage(null, "right");
 }

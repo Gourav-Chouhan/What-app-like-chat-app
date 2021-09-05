@@ -22,15 +22,21 @@ io.on("connection", (socket) => {
 
   socket.on("test", (data) => {
     // console.log(data.username);
-    let msg = data.data;
-    if (msg.startsWith("/w ")) {
-      let sendTo = msg.split(" ")[1];
+    // let msg = data.data;
+    let sendTo = data.currentChannel;
+    if (sendTo !== "general") {
+      // let sendTo = msg.split(" ")[1];
       io.to(users[sendTo]).emit("test", {
         username: data.username,
-        data: msg.split(" ")[2],
+        data: data.data,
+        channel: data.username
       });
     } else {
-      socket.broadcast.emit("test", data);
+      socket.broadcast.emit("test", {
+        username: data.username,
+        data: data.data,
+        channel: "general"
+      });
     }
   });
 
@@ -41,7 +47,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    console.log("disconnect");
     delete users[socket["_username"]];
     io.emit("takeOnlineStatus", users);
   });
