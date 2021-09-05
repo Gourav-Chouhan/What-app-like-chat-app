@@ -15,6 +15,8 @@ const socket = io();
 
 const colors = ["red", "blue", "violet", "orangered", "purple"];
 
+let onChatSection = false;
+
 socket.emit("userLogins", username);
 
 socket.on("sandesh", (msg) => {
@@ -52,6 +54,9 @@ const putMessage = (data, side, sendTo) => {
     ).lastElementChild;
     newMessageCounter.innerText = parseInt(newMessageCounter.innerText) + 1;
     newMessageCounter.style = "block";
+    if (!onChatSection) {
+      document.getElementById("greenDot").style.display = "block";
+    }
   }
 
   if (!msg.innerHTML) return;
@@ -95,6 +100,8 @@ _input.addEventListener("keydown", (e) => {
 let chatSection = document.querySelector(".chat-section");
 
 document.getElementById("chatgeneral").addEventListener("click", (e) => {
+  document.getElementById("headerGeneral").innerText = "Public Chat";
+
   let messageBox = document.getElementById(`chatgeneral`).lastElementChild;
   messageBox.innerText = 0;
   messageBox.style.display = "none";
@@ -125,6 +132,8 @@ const createOnlinePerson = (username, dpSource) => {
   channel.style.display = "none";
 
   person.addEventListener("click", (e) => {
+    document.getElementById("headerGeneral").innerText = username;
+
     let messageBox = document.getElementById(
       `chat${username}`
     ).lastElementChild;
@@ -250,7 +259,19 @@ const updateOnlinePeoples = (onlineUsers) => {
     createOnlinePerson(user, null);
   }
 };
-// setInterval(() => {
-//   getOnlineInfo();
 
-// }, 4000);
+const moveRight = () => {
+  document.getElementById("right-arrow").style.display = "none";
+  document.getElementById("left-arrow").style.display = "block";
+  container.style.display = "none";
+  chatSection.style.display = "block";
+  chatSection.style.width = "100%";
+  document.getElementById("greenDot").style.display = "none";
+};
+
+const moveLeft = () => {
+  document.getElementById("right-arrow").style.display = "block";
+  document.getElementById("left-arrow").style.display = "none";
+  container.style.display = "block";
+  chatSection.style.display = "none";
+};

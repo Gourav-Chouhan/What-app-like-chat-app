@@ -8,13 +8,28 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="greenDot" id="greenDot"></div>
+    <img
+      src="images/right.png"
+      id="right-arrow"
+      onclick="moveRight()"
+      alt="moveRight"
+    />
+
+    <img
+      src="images/left.png"
+      id="left-arrow"
+      onclick="moveLeft()"
+      alt="moveLeft"
+    />
+
     <div autocomplete="off" class="form" id="form">
       <div class="chat-section" id="chat-section">
-        <div class="header">Chats</div>
+        <div class="header" id="header">Chats</div>
         <div class="online selectedChannel" id="chatgeneral">
           <img src="//unsplash.it/70" height="80%" alt="" />
-          <div class="online-name" id="generalChat">General Chat</div>
-            <div class="newMessage" id="newMessage">0</div>
+          <div class="online-name" >Chat</div>
+          <div class="newMessage" id="newMessage">0</div>
         </div>
       </div>
       <div class="container" id="container">
@@ -23,7 +38,7 @@
           alt=""
           class="doodle"
         />
-        <div class="header" id="headerGeneral">General Chat</div>
+        <div class="header" id="headerGeneral">Public Chat</div>
         <div class="messages" id="general"></div>
         <div class="footer">
           <div class="gifMenu">

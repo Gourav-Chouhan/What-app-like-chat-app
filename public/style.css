@@ -11,13 +11,21 @@
   --bg-color-main-dark: #f0f0f0;
 }
 
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+html {
+  height: -webkit-fill-available;
+}
+
 html,
 body {
-  width: 100vw;
   height: 100vh;
 }
 
 body {
+  position: relative;
   font-family: "Segoe UI", Helvetica, Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   overflow: hidden;
@@ -227,7 +235,7 @@ button {
   /* display: none; */
   border: none;
   color: white;
-  background-color: red;
+  background-color: orangered;
 }
 
 /* #newMessage {
@@ -315,6 +323,25 @@ button {
     transform: rotate(360deg) scale(0);
   }
 }
+
+#right-arrow {
+  width: 10%;
+  position: absolute;
+  z-index: 100;
+  left: 0%;
+  top: 6.5%;
+  display: none;
+}
+
+#left-arrow {
+  width: 10%;
+  position: absolute;
+  z-index: 100;
+  right: 0%;
+  top: 6.5%;
+  display: none;
+}
+
 .gifBox {
   overflow: auto;
   width: 100%;
@@ -369,25 +396,44 @@ button {
   color: white;
 }
 
-/* .selectedChannel * {
-  background-color: rgb(0, 175, 0);
-} */
+.greenDot {
+  position: absolute;
+  top: 8%;
+  height: 30px;
+  width: 30px;
+  background-color: orangered;
+  display: hidden;
+  left: 6%;
+  z-index: 101;
+  border: 2px black solid;
+  border-radius: 50%;
+  display: none;
+}
 
 @media screen and (max-width: 1000px) {
-  body {
-    height: 90vh;
+  .greenDot {
+    display: none;
+  }
+  #right-arrow {
+    display: block;
   }
   .chat-section {
     display: none;
   }
+  .container {
+    width: 100vw;
+  }
 
+  /* .container {
+    display: none;
+  }
+
+  .chat-section {
+    width: 100%;
+  } */
   .form {
     width: 100%;
     height: 100%;
-  }
-
-  .container {
-    width: 100%;
   }
 
   .message img {
