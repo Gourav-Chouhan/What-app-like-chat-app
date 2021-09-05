@@ -8,6 +8,8 @@ username = username || "unknown";
 //   username = prompt("You need to enter a username for moving ahead");
 // }
 
+let usersMessages = {};
+
 const socket = io();
 
 const colors = ["red", "blue", "violet", "orangered", "purple"];
@@ -25,7 +27,7 @@ socket.on("test", (data) => {
 const form = document.getElementById("form");
 
 const putMessage = (data, side) => {
-  let parent = document.getElementById("messages");
+  let parent = document.querySelector(".messages");
   let msg = document.createElement("div");
   let sentBy = document.createElement("div");
   sentBy.classList.add("sentBy");
@@ -60,6 +62,8 @@ const putMessage = (data, side) => {
   parent.appendChild(msg);
   _input.value = "";
   parent.scrollBy(0, parent.scrollHeight);
+
+  usersMessages.general = parent;
 };
 
 const sendMessage = (username, data) => {
@@ -111,7 +115,7 @@ socket.on("takeOnlineStatus", (data) => {
 });
 
 const gifMenu = () => {
-  let msgParent = document.getElementById("messages");
+  let msgParent = document.querySelector("messages");
   msgParent.style.height = "45%";
   let gifMenu = document.querySelector(".gifMenu");
   let cancelMenu = document.querySelector("#cancel-gif-menu");
@@ -123,7 +127,7 @@ const gifMenu = () => {
   msgParent.scrollBy(0, 500);
 };
 
-let msgParent = document.getElementById("messages");
+let msgParent = document.querySelector("messages");
 
 const cancelGifMenu = () => {
   msgParent.style.height = "86.5%";
