@@ -9,6 +9,7 @@ username = username || "unknown";
 // }
 
 let usersMessages = {};
+let currentChannel = "general";
 
 const socket = io();
 
@@ -25,9 +26,11 @@ socket.on("test", (data) => {
 });
 
 const form = document.getElementById("form");
+let container = document.getElementById("container");
 
 const putMessage = (data, side) => {
-  let parent = document.querySelector(".messages");
+  let parent = document.getElementById(currentChannel);
+  console.log(parent);
   let msg = document.createElement("div");
   let sentBy = document.createElement("div");
   sentBy.classList.add("sentBy");
@@ -63,7 +66,7 @@ const putMessage = (data, side) => {
   _input.value = "";
   parent.scrollBy(0, parent.scrollHeight);
 
-  usersMessages.general = parent;
+  usersMessages[currentChannel] = parent.cloneNode(true);
 };
 
 const sendMessage = (username, data) => {
@@ -82,15 +85,51 @@ _input.addEventListener("keydown", (e) => {
 
 let chatSection = document.querySelector(".chat-section");
 
+document.getElementById("generalChat").addEventListener("click", (e) => {
+  if (currentChannel == "general") {
+    return;
+  }
+  document.getElementById("general").style.display = "block";
+  document.getElementById("chatgeneral").classList.add("selectedChannel");
+  document
+    .getElementById(`chat${currentChannel}`)
+    .classList.remove("selectedChannel");
+  document.getElementById(currentChannel).style.display = "none";
+  currentChannel = "general";
+  // hatao();
+  console.log("general");
+});
+
 const createOnlinePerson = (username, dpSource) => {
   let person = document.createElement("div");
   // while (chatSection.firstChild) {
   //   chatSection.removeChild(chatSection.firstChild);
   // }
+  let channel = document.createElement("div");
+  channel.classList.add("messages");
+  channel.id = username;
+  container.prepend(channel);
+  channel.style.display = "none";
+
   person.addEventListener("click", (e) => {
+    if (currentChannel == username) {
+      return;
+    }
+    document
+      .getElementById(`chat${currentChannel}`)
+      .classList.remove("selectedChannel");
+    document.getElementById(`chat${username}`).classList.add("selectedChannel");
+
+    // console.log(document.getElementById(username));
+    document.getElementById(username).style.display = "block";
+    document.getElementById(currentChannel).style.display = "none";
+    currentChannel = username;
+
+    // hatao();
     console.log(username);
   });
   person.classList.add("online");
+  person.id = `chat${username}`;
   let img = document.createElement("img");
   img.src = dpSource || "//unsplash.it/100";
   2;
@@ -115,7 +154,7 @@ socket.on("takeOnlineStatus", (data) => {
 });
 
 const gifMenu = () => {
-  let msgParent = document.querySelector("messages");
+  let msgParent = document.querySelector(".messages");
   msgParent.style.height = "45%";
   let gifMenu = document.querySelector(".gifMenu");
   let cancelMenu = document.querySelector("#cancel-gif-menu");
@@ -127,7 +166,19 @@ const gifMenu = () => {
   msgParent.scrollBy(0, 500);
 };
 
-let msgParent = document.querySelector("messages");
+let msgParent = document.querySelector(".messages");
+
+const hatao = () => {
+  while (msgParent.childElementCount) {
+    msgParent.removeChild(msgParent.firstChild);
+  }
+};
+
+let oldNode;
+
+const copyNode = () => {
+  oldNode = msgParent.cloneNode(true);
+};
 
 const cancelGifMenu = () => {
   msgParent.style.height = "86.5%";

@@ -218,14 +218,13 @@ button {
   border-radius: 50%;
   margin: 3%;
 }
-
+/* 
 .online-name {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
-  background-color: white;
-}
+} */
 
 .message .sentBy {
   width: 100%;
@@ -335,6 +334,20 @@ button {
   height: 10%;
 }
 
+.online:hover {
+  background-color: rgba(0, 228, 0, 0.349);
+  color: black;
+}
+
+.selectedChannel {
+  background: rgb(0, 175, 0);
+  color: white;
+}
+
+/* .selectedChannel * {
+  background-color: rgb(0, 175, 0);
+} */
+
 @media screen and (max-width: 1000px) {
   body {
     height: 90vh;
@@ -342,7 +355,7 @@ button {
   .chat-section {
     display: none;
   }
-  
+
   .form {
     width: 100%;
     height: 100%;
@@ -351,8 +364,8 @@ button {
   .container {
     width: 100%;
   }
-  
-   .message img {
+
+  .message img {
     max-width: 170px;
   }
 }
